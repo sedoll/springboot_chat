@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>채팅방 목록</title>
+</head>
+<body>
+    <h2>채팅방 목록</h2>
+    <hr><br>
+    <th:block sec:authorize="isAuthenticated()">
+    <a th:href="@{/chat/roomForm}">방만들기</a><br>
+    <tr th:each="room : ${roomList}">
+        <td><a th:href="@{/chat/{roomId}(roomId=${room.getId()})}" th:text="${room.getName()}"></a></td>
+    </tr>
+    </th:block>
+    <th:block sec:authorize="isAnonymous()">
+        <p>
+            <a th:href="@{/member/new}">회원가입</a>
+            <a th:href="@{/member/login}">로그인</a>
+        </p>
+    </th:block>
+</body>
+</html>
